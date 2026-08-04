@@ -12,7 +12,7 @@
 </script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Problem | Irrigation Advisory System for Sugarcane — KJS-AGR-01</title>
+<title>AI &amp; Sensor Technology | Irrigation Advisory System for Sugarcane — KJS-AGR-01</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -95,9 +95,7 @@
   @media (max-width: 640px) { nav.nav-links { display: none; } }
 
   /* ---------- PAGE HERO ---------- */
-  .page-hero {
-    padding: 88px 32px 56px;
-  }
+  .page-hero { padding: 88px 32px 56px; }
   .page-hero-inner { max-width: 1120px; margin: 0 auto; }
 
   .eyebrow {
@@ -105,14 +103,14 @@
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--clay-600);
+    color: var(--water-500);
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 24px;
   }
-  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--clay-600); }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--water-500); }
 
   h1.page-title {
     font-family: var(--display);
@@ -121,8 +119,9 @@
     line-height: 1.08;
     letter-spacing: -0.01em;
     color: var(--soil-900);
-    max-width: 18ch;
+    max-width: 19ch;
   }
+  h1.page-title em { font-style: italic; font-weight: 500; color: var(--water-500); }
 
   .page-sub {
     margin-top: 24px;
@@ -166,171 +165,134 @@
   .section-note { max-width: 34ch; color: #6b5f4d; font-size: 0.95rem; }
   section.dark .section-note { color: #C9BBA0; }
 
-  /* ---------- INTRO TEXT BLOCK ---------- */
-  .lede {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 48px;
-  }
-  .lede-label {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--clay-600);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 600;
-    padding-top: 6px;
-  }
-  .lede-text {
-    font-family: var(--display);
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--soil-900);
-    max-width: 42ch;
-  }
-  @media (max-width: 720px) {
-    .lede { grid-template-columns: 1fr; gap: 16px; }
-  }
-
-  /* ---------- GROWTH STAGE CHART (signature element) ---------- */
-  .stage-panel {
-    background: var(--soil-900);
-    border-radius: 14px;
-    padding: 40px 36px 28px;
-    color: var(--cream-100);
-  }
-
-  .stage-panel-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .stage-panel-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #C9BBA0;
-  }
-
-  .stage-panel-legend {
-    display: flex;
-    gap: 20px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: #C9BBA0;
-  }
-
-  .stage-panel-legend span { display: inline-flex; align-items: center; gap: 6px; }
-  .legend-swatch { width: 10px; height: 10px; border-radius: 2px; }
-
-  .stage-chart {
+  /* ---------- SENSOR CARDS ---------- */
+  .sensor-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    align-items: end;
+    gap: 1px;
+    background: rgba(43,32,19,0.12);
+    border: 1px solid rgba(43,32,19,0.12);
+    border-radius: 12px;
+    overflow: hidden;
   }
-
-  .stage-col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-
-  .stage-bars {
-    width: 100%;
-    height: 200px;
-    display: flex;
-    align-items: flex-end;
-    gap: 6px;
-    justify-content: center;
+  .sensor-card {
+    background: var(--cream-50);
+    padding: 28px 22px;
   }
-
-  .bar {
-    width: 16px;
-    border-radius: 3px 3px 0 0;
-  }
-
-  .bar.need { background: var(--water-500); }
-  .bar.supply { background: #4A3A24; border: 1px dashed #8A7C63; }
-
-  .stage-name {
-    font-family: var(--body);
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--cream-100);
-  }
-
-  .stage-days {
+  .sensor-tag {
     font-family: var(--mono);
     font-size: 10.5px;
-    color: #8A7C63;
-  }
-
-  .stage-gap-note {
-    margin-top: 8px;
-    font-family: var(--mono);
-    font-size: 10px;
-    text-align: center;
     color: var(--sun-500);
-    max-width: 16ch;
+    letter-spacing: 0.06em;
+    margin-bottom: 16px;
   }
-
-  @media (max-width: 720px) {
-    .stage-chart { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
-  }
-
-  /* ---------- CAUSE LIST ---------- */
-  .cause-list { border-top: 1px solid rgba(43,32,19,0.12); }
-  .cause-row {
-    display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 24px;
-    padding: 30px 0;
-    border-bottom: 1px solid rgba(43,32,19,0.12);
-  }
-  .cause-icon {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--clay-600);
-    font-weight: 600;
-    padding-top: 4px;
-  }
-  .cause-row h4 {
+  .sensor-card h4 {
     font-family: var(--body);
-    font-size: 1.08rem;
     font-weight: 700;
+    font-size: 1rem;
     color: var(--soil-900);
     margin-bottom: 8px;
   }
-  .cause-row p { font-size: 0.94rem; color: #6b5f4d; max-width: 62ch; }
+  .sensor-card p { font-size: 0.87rem; color: #6b5f4d; }
+  @media (max-width: 900px) { .sensor-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .sensor-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- COMPARISON TABLE ---------- */
-  .compare {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.92rem;
+  /* ---------- PIPELINE DIAGRAM (signature element) ---------- */
+  .pipeline {
+    background: var(--soil-900);
+    border-radius: 14px;
+    padding: 44px 36px;
+    overflow-x: auto;
   }
-  .compare th, .compare td {
-    text-align: left;
-    padding: 18px 20px;
-    border-bottom: 1px solid rgba(43,32,19,0.12);
-    vertical-align: top;
+  .pipeline-track {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    min-width: 720px;
   }
-  .compare th {
+  .pipe-node {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pipe-badge {
     font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
+    font-size: 10px;
+    color: #8A7C63;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #6b5f4d;
-    font-weight: 600;
-    border-bottom: 2px solid var(--soil-900);
   }
-  .compare td:first-child, .compare th:first-child { color: var(--soil-900); font-weight: 600; width: 22%; }
-  .compare .no { color: var(--clay-600); }
-  .compare .yes { color: var(--cane-600); font-weight: 600; }
-  .compare-wrap { overflow-x: auto; }
+  .pipe-box {
+    background: #241B10;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 20px 18px;
+    min-height: 128px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .pipe-box h5 {
+    font-family: var(--body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--cream-100);
+    margin-bottom: 8px;
+  }
+  .pipe-box p { font-family: var(--body); font-size: 0.8rem; color: #A99A80; line-height: 1.5; }
+  .pipe-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    color: #6B5F4D;
+    font-family: var(--mono);
+    font-size: 16px;
+  }
+  @media (max-width: 720px) {
+    .pipeline-track { flex-direction: column; min-width: 0; }
+    .pipe-arrow { transform: rotate(90deg); width: auto; height: 24px; }
+  }
+
+  /* ---------- MODEL SPEC TABLE ---------- */
+  .model-block { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  @media (max-width: 860px) { .model-block { grid-template-columns: 1fr; } }
+
+  .model-copy p { color: #4a4033; font-size: 0.98rem; margin-bottom: 18px; max-width: 46ch; }
+  .model-copy p:last-child { margin-bottom: 0; }
+
+  .spec-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .spec-table tr { border-bottom: 1px solid rgba(43,32,19,0.12); }
+  .spec-table tr:first-child { border-top: 1px solid rgba(43,32,19,0.12); }
+  .spec-table td { padding: 14px 4px; vertical-align: top; }
+  .spec-table td:first-child {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: #6b5f4d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    width: 38%;
+    padding-top: 16px;
+  }
+  .spec-table td:last-child { color: var(--soil-900); font-weight: 500; }
+
+  /* ---------- STACK STRIP ---------- */
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .stack-pill {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--soil-900);
+    background: var(--cream-100);
+    border: 1px solid rgba(43,32,19,0.15);
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .stack-pill strong { color: var(--cane-600); }
 
   /* ---------- CTA STRIP ---------- */
   .cta-strip {
@@ -339,17 +301,12 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 24px;
-    background: var(--cane-600);
+    background: var(--water-500);
     border-radius: 14px;
     padding: 40px 40px;
     color: var(--cream-50);
   }
-  .cta-strip h3 {
-    font-family: var(--display);
-    font-size: 1.5rem;
-    font-weight: 600;
-    max-width: 22ch;
-  }
+  .cta-strip h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 600; max-width: 22ch; }
   .cta-strip a.btn {
     background: var(--cream-50);
     color: var(--soil-900);
@@ -374,12 +331,7 @@
     padding-bottom: 36px;
     border-bottom: 1px solid rgba(255,255,255,0.12);
   }
-  .footer-brand {
-    font-family: var(--display);
-    font-size: 1.3rem;
-    font-weight: 600;
-    max-width: 26ch;
-  }
+  .footer-brand { font-family: var(--display); font-size: 1.3rem; font-weight: 600; max-width: 26ch; }
   .footer-links { display: flex; gap: 48px; flex-wrap: wrap; }
   .footer-col h5 {
     font-family: var(--mono);
@@ -416,8 +368,8 @@
     <div class="nav-logo"><span class="dot"></span>KJS-AGR-01</div>
     <nav class="nav-links">
       <a href="index.html">Home</a>
-      <a href="problem.html" class="active">The Problem</a>
-      <a href="technology.html">Technology</a>
+      <a href="problem.html">The Problem</a>
+      <a href="technology.html" class="active">Technology</a>
       <a href="dashboard.html">Advisory Dashboard</a>
     </nav>
   </div>
@@ -425,78 +377,9 @@
 
 <section class="page-hero">
   <div class="page-hero-inner">
-    <div class="eyebrow">Page 02 &mdash; Diagnosis</div>
-    <h1 class="page-title">Sugarcane doesn't need water on a schedule. It needs water on <em>time</em>.</h1>
-    <p class="page-sub">Most irrigation in sugarcane fields still runs on a fixed calendar — every 10 or 15 days, regardless of what the soil, the weather, or the crop itself is actually asking for. That mismatch is where the water, the yield, and the farmer's margin get lost.</p>
-  </div>
-</section>
-
-<section>
-  <div class="section-inner">
-    <div class="lede">
-      <div class="lede-label">The core issue</div>
-      <p class="lede-text">A sugarcane crop's water demand changes by the week, but a calendar doesn't. The result is a crop that's flooded when it needs little, and starved when it needs the most.</p>
-    </div>
-  </div>
-</section>
-
-<section class="alt">
-  <div class="section-inner">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">Where the mismatch happens</div>
-        <h2 class="section-title">Water need vs. water given, by growth stage.</h2>
-      </div>
-      <p class="section-note">Demand (blue) rises sharply through tillering and grand growth. Calendar-based supply (dashed) stays roughly flat all season.</p>
-    </div>
-
-    <div class="stage-panel">
-      <div class="stage-panel-head">
-        <div class="stage-panel-title">Sugarcane crop cycle &mdash; approx. 12 months</div>
-        <div class="stage-panel-legend">
-          <span><span class="legend-swatch" style="background:#3E7C8C;"></span>Actual need</span>
-          <span><span class="legend-swatch" style="background:#4A3A24; border:1px dashed #8A7C63;"></span>Fixed schedule</span>
-        </div>
-      </div>
-      <div class="stage-chart">
-        <div class="stage-col">
-          <div class="stage-bars">
-            <div class="bar need" style="height:70px;"></div>
-            <div class="bar supply" style="height:110px;"></div>
-          </div>
-          <div class="stage-name">Germination</div>
-          <div class="stage-days">0&ndash;35 days</div>
-          <div class="stage-gap-note">Over-watered</div>
-        </div>
-        <div class="stage-col">
-          <div class="stage-bars">
-            <div class="bar need" style="height:150px;"></div>
-            <div class="bar supply" style="height:110px;"></div>
-          </div>
-          <div class="stage-name">Tillering</div>
-          <div class="stage-days">35&ndash;120 days</div>
-          <div class="stage-gap-note">Under-watered</div>
-        </div>
-        <div class="stage-col">
-          <div class="stage-bars">
-            <div class="bar need" style="height:200px;"></div>
-            <div class="bar supply" style="height:110px;"></div>
-          </div>
-          <div class="stage-name">Grand Growth</div>
-          <div class="stage-days">120&ndash;270 days</div>
-          <div class="stage-gap-note">Critically under-watered</div>
-        </div>
-        <div class="stage-col">
-          <div class="stage-bars">
-            <div class="bar need" style="height:60px;"></div>
-            <div class="bar supply" style="height:110px;"></div>
-          </div>
-          <div class="stage-name">Maturation</div>
-          <div class="stage-days">270&ndash;365 days</div>
-          <div class="stage-gap-note">Over-watered</div>
-        </div>
-      </div>
-    </div>
+    <div class="eyebrow">Page 03 &mdash; How it works</div>
+    <h1 class="page-title">Sensors that <em>listen</em> to the field, and a model that <em>decides</em>.</h1>
+    <p class="page-sub">Every recommendation starts as a raw electrical signal in the soil. Here's the full path it takes — from sensor to gateway to AI model to the advisory a farmer actually sees.</p>
   </div>
 </section>
 
@@ -504,39 +387,32 @@
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-tag">Root causes</div>
-        <h2 class="section-title">Why the calendar approach persists anyway.</h2>
+        <div class="section-tag">The sensor layer</div>
+        <h2 class="section-title">What's actually installed in the field.</h2>
       </div>
+      <p class="section-note">A compact node placed per representative plot, low-power and solar-assisted for continuous field deployment.</p>
     </div>
 
-    <div class="cause-list">
-      <div class="cause-row">
-        <div class="cause-icon">01</div>
-        <div>
-          <h4>No visibility into the soil</h4>
-          <p>Without sensors, moisture is judged by eye or by touch — both unreliable, and both blind to conditions a few inches below the surface where cane roots actually draw water.</p>
-        </div>
+    <div class="sensor-grid">
+      <div class="sensor-card">
+        <div class="sensor-tag">SEN &middot; 01</div>
+        <h4>Soil moisture probe</h4>
+        <p>Capacitive sensor reading volumetric water content at root depth, logged every 30 minutes.</p>
       </div>
-      <div class="cause-row">
-        <div class="cause-icon">02</div>
-        <div>
-          <h4>Weather is treated as background noise</h4>
-          <p>A schedule set in June doesn't adjust for an unseasonal dry spell in August or an early monsoon burst — both of which change how much irrigation the field actually needs that week.</p>
-        </div>
+      <div class="sensor-card">
+        <div class="sensor-tag">SEN &middot; 02</div>
+        <h4>Soil temperature probe</h4>
+        <p>Paired with the moisture probe to track how heat affects evapotranspiration through the day.</p>
       </div>
-      <div class="cause-row">
-        <div class="cause-icon">03</div>
-        <div>
-          <h4>Every plot is treated the same</h4>
-          <p>Soil type, drainage, and shade vary even within a single field, but a fixed schedule applies one irrigation volume across the entire plot, regardless of these differences.</p>
-        </div>
+      <div class="sensor-card">
+        <div class="sensor-tag">SEN &middot; 03</div>
+        <h4>Ambient humidity &amp; temp</h4>
+        <p>Above-canopy readings used alongside forecast data to estimate near-term water loss.</p>
       </div>
-      <div class="cause-row">
-        <div class="cause-icon">04</div>
-        <div>
-          <h4>Advisory tools stop at general guidelines</h4>
-          <p>Most extension advice offers season-long norms, not a live, field-specific answer to the question a farmer actually has each morning: irrigate today, or not?</p>
-        </div>
+      <div class="sensor-card">
+        <div class="sensor-tag">SEN &middot; 04</div>
+        <h4>Rain gauge</h4>
+        <p>Tips-bucket rainfall sensor so recent natural rainfall is subtracted from irrigation recommendations.</p>
       </div>
     </div>
   </div>
@@ -546,48 +422,107 @@
   <div class="section-inner">
     <div class="section-head">
       <div>
-        <div class="section-tag">The gap, side by side</div>
-        <h2 class="section-title">Calendar irrigation vs. an advisory system.</h2>
+        <div class="section-tag">End to end</div>
+        <h2 class="section-title">From field signal to farmer's phone.</h2>
       </div>
     </div>
 
-    <div class="compare-wrap">
-      <table class="compare">
-        <thead>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Fixed calendar schedule</th>
-            <th>AI + sensor advisory</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Basis for decision</td>
-            <td class="no">Days elapsed since last irrigation</td>
-            <td class="yes">Live soil moisture, temperature &amp; forecast</td>
-          </tr>
-          <tr>
-            <td>Adjusts for weather</td>
-            <td class="no">No</td>
-            <td class="yes">Yes, in near real time</td>
-          </tr>
-          <tr>
-            <td>Adjusts for growth stage</td>
-            <td class="no">Rarely, and coarsely</td>
-            <td class="yes">Yes, per current stage</td>
-          </tr>
-          <tr>
-            <td>Plot-level accuracy</td>
-            <td class="no">One rule for the whole field</td>
-            <td class="yes">Per-plot readings and advice</td>
-          </tr>
-          <tr>
-            <td>Farmer's decision each day</td>
-            <td class="no">Follow the schedule regardless</td>
-            <td class="yes">A specific, explained recommendation</td>
-          </tr>
-        </tbody>
+    <div class="pipeline">
+      <div class="pipeline-track">
+        <div class="pipe-node">
+          <div class="pipe-badge">Step 01</div>
+          <div class="pipe-box">
+            <h5>Field sensors</h5>
+            <p>Moisture, temperature, humidity and rainfall readings captured at each plot node.</p>
+          </div>
+        </div>
+        <div class="pipe-arrow">&rarr;</div>
+        <div class="pipe-node">
+          <div class="pipe-badge">Step 02</div>
+          <div class="pipe-box">
+            <h5>IoT gateway</h5>
+            <p>Readings are batched and transmitted over GSM/LoRa to a central collection point.</p>
+          </div>
+        </div>
+        <div class="pipe-arrow">&rarr;</div>
+        <div class="pipe-node">
+          <div class="pipe-badge">Step 03</div>
+          <div class="pipe-box">
+            <h5>AI prediction model</h5>
+            <p>Combines live readings, crop growth stage and short-term forecast to estimate irrigation need.</p>
+          </div>
+        </div>
+        <div class="pipe-arrow">&rarr;</div>
+        <div class="pipe-node">
+          <div class="pipe-badge">Step 04</div>
+          <div class="pipe-box">
+            <h5>Advisory dashboard</h5>
+            <p>A plain-language recommendation is generated: irrigate now, hold, or reduce.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">The prediction model</div>
+        <h2 class="section-title">What the AI is actually doing with the data.</h2>
+      </div>
+    </div>
+
+    <div class="model-block">
+      <div class="model-copy">
+        <p>The model's job is narrow and specific: given today's soil and weather readings plus the crop's current growth stage, predict whether the field's moisture will fall below the safe threshold for that stage within the next 24–48 hours.</p>
+        <p>It's trained on historical sensor logs paired with recorded irrigation outcomes, so its recommendations reflect how this specific soil type and plot actually respond to water — not a generic crop-water table.</p>
+        <p>Where confidence is low, such as right after unseasonal rainfall, the model flags the recommendation as provisional rather than presenting it as certain.</p>
+      </div>
+
+      <table class="spec-table">
+        <tr>
+          <td>Model type</td>
+          <td>Supervised regression / classification ensemble</td>
+        </tr>
+        <tr>
+          <td>Inputs</td>
+          <td>Soil moisture, soil temp, humidity, rainfall, growth stage, 48-hr forecast</td>
+        </tr>
+        <tr>
+          <td>Output</td>
+          <td>Irrigate now / hold / reduce, with a confidence level</td>
+        </tr>
+        <tr>
+          <td>Update frequency</td>
+          <td>Recalculated every reading cycle (30 min)</td>
+        </tr>
+        <tr>
+          <td>Training data</td>
+          <td>Historical plot-level sensor logs + irrigation records</td>
+        </tr>
       </table>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">Built with</div>
+        <h2 class="section-title">Tech stack for this build.</h2>
+      </div>
+    </div>
+
+    <div class="stack-row">
+      <div class="stack-pill"><strong>Sensing</strong> Capacitive soil probes</div>
+      <div class="stack-pill"><strong>Connectivity</strong> LoRa / GSM gateway</div>
+      <div class="stack-pill"><strong>Modeling</strong> Python, scikit-learn</div>
+      <div class="stack-pill"><strong>Storage</strong> Cloud time-series database</div>
+      <div class="stack-pill"><strong>Dashboard</strong> HTML / CSS / JS, hosted on GitHub Pages</div>
+      <div class="stack-pill"><strong>Forecasting</strong> Public weather API</div>
     </div>
   </div>
 </section>
@@ -595,8 +530,8 @@
 <section>
   <div class="section-inner">
     <div class="cta-strip">
-      <h3>See how the sensors and AI model actually close this gap.</h3>
-      <a href="technology.html" class="btn">View the technology &rarr;</a>
+      <h3>See the model's output on a working advisory dashboard.</h3>
+      <a href="dashboard.html" class="btn">Open the dashboard &rarr;</a>
     </div>
   </div>
 </section>
