@@ -5,12 +5,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8TYPNM9JF"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H8TYPNM9JF');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H8TYPNM9JF');
 </script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sugarcane Irrigation Advisory System | AI &amp; Sensor-Based Smart Farming | KJS-AGR-01</title>
 <meta name="description" content="AI and sensor-based irrigation advisory system for sugarcane crops. Real-time soil moisture, temperature and humidity monitoring with AI-driven irrigation recommendations for farmers.">
@@ -24,733 +23,817 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --soil-900: #2B2013;
-    --soil-700: #3D2B1F;
-    --cane-600: #4A7C59;
-    --cane-400: #7BA582;
-    --cane-200: #C9DCC5;
-    --water-500: #3E7C8C;
-    --sun-500: #D98E2C;
-    --cream-100: #F6F3EC;
-    --cream-50: #FBFAF6;
-    --ink: #201A12;
+:root {
+  --soil-900: #2B2013;
+  --soil-700: #3D2B1F;
+  --cane-600: #4A7C59;
+  --cane-400: #7BA582;
+  --cane-200: #C9DCC5;
+  --water-500: #3E7C8C;
+  --sun-500: #D98E2C;
+  --cream-100: #F6F3EC;
+  --cream-50: #FBFAF6;
+  --ink: #201A12;
+  --display: 'Fraunces', serif;
+  --body: 'Public Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream-50);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+img { max-width: 100%; display: block; }
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
 
-    --display: 'Fraunces', serif;
-    --body: 'Public Sans', sans-serif;
-    --mono: 'IBM Plex Mono', monospace;
-  }
+/* ---------- NAV ---------- */
+header.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 250, 246, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(43, 32, 19, 0.1);
+}
+.nav-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--soil-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cane-600);
+  box-shadow: 0 0 0 3px var(--cane-200);
+}
+nav.nav-links {
+  display: flex;
+  gap: 36px;
+  font-size: 14px;
+  font-weight: 600;
+}
+nav.nav-links a {
+  color: var(--soil-700);
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+nav.nav-links a:hover { opacity: 1; }
+nav.nav-links a.active {
+  opacity: 1;
+  border-bottom-color: var(--cane-600);
+}
+@media (max-width: 640px) {
+  nav.nav-links { display: none; }
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* ---------- HERO ---------- */
+.hero {
+  padding: 96px 32px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cane-600);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--cane-600);
+}
+h1.hero-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+  line-height: 1.03;
+  letter-spacing: -0.01em;
+  color: var(--soil-900);
+  max-width: 15ch;
+}
+h1.hero-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--cane-600);
+}
+.hero-sub {
+  margin-top: 28px;
+  font-size: 1.15rem;
+  color: #4a4033;
+  max-width: 52ch;
+  font-weight: 400;
+}
+.hero-meta {
+  margin-top: 40px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.hero-meta div {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #6b5f4d;
+}
+.hero-meta strong {
+  display: block;
+  font-size: 13px;
+  color: var(--soil-900);
+  font-weight: 600;
+  margin-bottom: 3px;
+}
 
-  html { scroll-behavior: smooth; }
+/* ---------- HERO CTA BUTTONS ---------- */
+.hero-actions {
+  margin-top: 36px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-secondary {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  display: inline-block;
+}
+.btn-primary {
+  background: var(--cane-600);
+  color: var(--cream-50);
+}
+.btn-primary:hover { transform: translateY(-2px); background: var(--soil-900); }
+.btn-secondary {
+  background: transparent;
+  color: var(--soil-700);
+  border: 1px solid rgba(43,32,19,0.25);
+}
+.btn-secondary:hover { transform: translateY(-2px); border-color: var(--soil-700); }
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { text-align: center; }
+}
 
-  body {
-    background: var(--cream-50);
-    color: var(--ink);
-    font-family: var(--body);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+/* ---------- SENSOR CONSOLE (signature element) ---------- */
+.console {
+  margin-top: 64px;
+  background: var(--soil-900);
+  border-radius: 14px;
+  padding: 4px;
+  box-shadow: 0 20px 50px -20px rgba(43, 32, 19, 0.45);
+}
+.console-inner {
+  background: linear-gradient(180deg, #2B2013 0%, #241B10 100%);
+  border-radius: 11px;
+  padding: 28px 28px 20px;
+  position: relative;
+}
+.console-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.console-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: #C9BBA0;
+  text-transform: uppercase;
+}
+.live-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #9BD4A8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.08em;
+}
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9BD4A8;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(155,212,168,0.5); }
+  50% { opacity: 0.5; box-shadow: 0 0 0 5px rgba(155,212,168,0); }
+}
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.console-cell {
+  background: #241B10;
+  padding: 18px 18px 16px;
+}
+.console-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A7C63;
+  margin-bottom: 10px;
+}
+.console-value {
+  font-family: var(--mono);
+  font-size: 1.6rem;
+  color: var(--cream-100);
+  font-weight: 500;
+}
+.console-value span.unit {
+  font-size: 0.85rem;
+  color: #8A7C63;
+  margin-left: 2px;
+}
+.console-value.warn { color: var(--sun-500); }
+.console-value.ok { color: #9BD4A8; }
+.console-bar-track {
+  margin-top: 12px;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.console-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--cane-400);
+}
+.console-footer {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.console-advice {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #C9BBA0;
+}
+.console-advice strong { color: #9BD4A8; }
+@media (max-width: 720px) {
+  .console-grid { grid-template-columns: repeat(2, 1fr); }
+}
 
-  a { color: inherit; text-decoration: none; }
+/* ---------- SECTION SCAFFOLD ---------- */
+section {
+  padding: 96px 32px;
+}
+section.alt { background: var(--cream-100); }
+.section-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.section-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--water-500);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+h2.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 600;
+  color: var(--soil-900);
+  max-width: 20ch;
+}
+.section-note {
+  max-width: 34ch;
+  color: #6b5f4d;
+  font-size: 0.95rem;
+}
 
-  img { max-width: 100%; display: block; }
+/* ---------- WHY / PROBLEM STRIP ---------- */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(43,32,19,0.1);
+  border-top: 1px solid rgba(43,32,19,0.12);
+  border-bottom: 1px solid rgba(43,32,19,0.12);
+}
+.stat-cell {
+  background: var(--cream-50);
+  padding: 40px 28px;
+}
+.stat-num {
+  font-family: var(--display);
+  font-size: 2.6rem;
+  font-weight: 600;
+  color: var(--cane-600);
+  line-height: 1;
+}
+.stat-label {
+  margin-top: 12px;
+  font-size: 0.92rem;
+  color: #4a4033;
+  max-width: 26ch;
+}
+@media (max-width: 720px) {
+  .stat-row { grid-template-columns: 1fr; }
+}
 
-  .wrap {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
+/* ---------- SYSTEM CARDS (nav to other pages) ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.card {
+  background: var(--cream-50);
+  border: 1px solid rgba(43,32,19,0.12);
+  border-radius: 12px;
+  padding: 32px 26px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.card:hover {
+  border-color: var(--cane-600);
+  transform: translateY(-3px);
+}
+.card-index {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--sun-500);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.card h3 {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--soil-900);
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 0.92rem;
+  color: #6b5f4d;
+  flex-grow: 1;
+}
+.card-arrow {
+  margin-top: 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--cane-600);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 900px) {
+  .card-grid { grid-template-columns: 1fr; }
+}
 
-  /* ---------- NAV ---------- */
-  header.site-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(251, 250, 246, 0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(43, 32, 19, 0.1);
-  }
+/* ---------- PROCESS ---------- */
+.flow {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(43,32,19,0.12);
+}
+.flow-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(43,32,19,0.12);
+  align-items: baseline;
+}
+.flow-index {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--water-500);
+  font-weight: 600;
+}
+.flow-content h4 {
+  font-family: var(--body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--soil-900);
+  margin-bottom: 6px;
+}
+.flow-content p {
+  font-size: 0.92rem;
+  color: #6b5f4d;
+  max-width: 60ch;
+}
 
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    max-width: 1120px;
-    margin: 0 auto;
-  }
+/* ---------- FOOTER ---------- */
+footer {
+  background: var(--soil-900);
+  color: var(--cream-100);
+  padding: 56px 32px 32px;
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.footer-brand {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  max-width: 26ch;
+}
+.footer-links {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.footer-col h5 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9B8D73;
+  margin-bottom: 14px;
+}
+.footer-col a, .footer-col span {
+  display: block;
+  font-size: 0.9rem;
+  color: #E8E0CE;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+.footer-col a:hover { opacity: 1; }
+.footer-bottom {
+  padding-top: 24px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #8A7C63;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-  .nav-logo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--soil-700);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .nav-logo .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--cane-600);
-    box-shadow: 0 0 0 3px var(--cane-200);
-  }
-
+/* ---------- MOBILE NAV TOGGLE ---------- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid rgba(43,32,19,0.18);
+  border-radius: 7px;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 18px;
+  margin: 0 auto;
+  background: var(--soil-700);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 640px) {
+  .nav-toggle { display: flex; }
   nav.nav-links {
-    display: flex;
-    gap: 36px;
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  nav.nav-links a {
-    color: var(--soil-700);
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-  }
-
-  nav.nav-links a:hover { opacity: 1; }
-  nav.nav-links a.active {
-    opacity: 1;
-    border-bottom-color: var(--cane-600);
-  }
-
-  @media (max-width: 640px) {
-    nav.nav-links { display: none; }
-  }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    padding: 96px 32px 64px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-  }
-
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--cane-600);
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-
-  .eyebrow::before {
-    content: '';
-    width: 24px;
-    height: 1px;
-    background: var(--cane-600);
-  }
-
-  h1.hero-title {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: clamp(2.6rem, 5.5vw, 4.6rem);
-    line-height: 1.03;
-    letter-spacing: -0.01em;
-    color: var(--soil-900);
-    max-width: 15ch;
-  }
-
-  h1.hero-title em {
-    font-style: italic;
-    font-weight: 500;
-    color: var(--cane-600);
-  }
-
-  .hero-sub {
-    margin-top: 28px;
-    font-size: 1.15rem;
-    color: #4a4033;
-    max-width: 52ch;
-    font-weight: 400;
-  }
-
-  .hero-meta {
-    margin-top: 40px;
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
-  .hero-meta div {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: #6b5f4d;
-  }
-
-  .hero-meta strong {
-    display: block;
-    font-size: 13px;
-    color: var(--soil-900);
-    font-weight: 600;
-    margin-bottom: 3px;
-  }
-
-  /* ---------- SENSOR CONSOLE (signature element) ---------- */
-  .console {
-    margin-top: 64px;
-    background: var(--soil-900);
-    border-radius: 14px;
-    padding: 4px;
-    box-shadow: 0 20px 50px -20px rgba(43, 32, 19, 0.45);
-  }
-
-  .console-inner {
-    background: linear-gradient(180deg, #2B2013 0%, #241B10 100%);
-    border-radius: 11px;
-    padding: 28px 28px 20px;
-    position: relative;
-  }
-
-  .console-topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-  }
-
-  .console-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: #C9BBA0;
-    text-transform: uppercase;
-  }
-
-  .live-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: #9BD4A8;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    letter-spacing: 0.08em;
-  }
-
-  .live-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #9BD4A8;
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(155,212,168,0.5); }
-    50% { opacity: 0.5; box-shadow: 0 0 0 5px rgba(155,212,168,0); }
-  }
-
-  .console-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  .console-cell {
-    background: #241B10;
-    padding: 18px 18px 16px;
-  }
-
-  .console-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #8A7C63;
-    margin-bottom: 10px;
-  }
-
-  .console-value {
-    font-family: var(--mono);
-    font-size: 1.6rem;
-    color: var(--cream-100);
-    font-weight: 500;
-  }
-
-  .console-value span.unit {
-    font-size: 0.85rem;
-    color: #8A7C63;
-    margin-left: 2px;
-  }
-
-  .console-value.warn { color: var(--sun-500); }
-  .console-value.ok { color: #9BD4A8; }
-
-  .console-bar-track {
-    margin-top: 12px;
-    height: 4px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .console-bar-fill {
-    height: 100%;
-    border-radius: 2px;
-    background: var(--cane-400);
-  }
-
-  .console-footer {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .console-advice {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: #C9BBA0;
-  }
-
-  .console-advice strong { color: #9BD4A8; }
-
-  @media (max-width: 720px) {
-    .console-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  /* ---------- SECTION SCAFFOLD ---------- */
-  section {
-    padding: 96px 32px;
-  }
-
-  section.alt { background: var(--cream-100); }
-
-  .section-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-  }
-
-  .section-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 32px;
-    margin-bottom: 56px;
-    flex-wrap: wrap;
-  }
-
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--water-500);
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
-
-  h2.section-title {
-    font-family: var(--display);
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    font-weight: 600;
-    color: var(--soil-900);
-    max-width: 20ch;
-  }
-
-  .section-note {
-    max-width: 34ch;
-    color: #6b5f4d;
-    font-size: 0.95rem;
-  }
-
-  /* ---------- WHY / PROBLEM STRIP ---------- */
-  .stat-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(43,32,19,0.1);
-    border-top: 1px solid rgba(43,32,19,0.12);
-    border-bottom: 1px solid rgba(43,32,19,0.12);
-  }
-
-  .stat-cell {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     background: var(--cream-50);
-    padding: 40px 28px;
-  }
-
-  .stat-num {
-    font-family: var(--display);
-    font-size: 2.6rem;
-    font-weight: 600;
-    color: var(--cane-600);
-    line-height: 1;
-  }
-
-  .stat-label {
-    margin-top: 12px;
-    font-size: 0.92rem;
-    color: #4a4033;
-    max-width: 26ch;
-  }
-
-  @media (max-width: 720px) {
-    .stat-row { grid-template-columns: 1fr; }
-  }
-
-  /* ---------- SYSTEM CARDS (nav to other pages) ---------- */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .card {
-    background: var(--cream-50);
-    border: 1px solid rgba(43,32,19,0.12);
-    border-radius: 12px;
-    padding: 32px 26px;
-    transition: border-color 0.2s ease, transform 0.2s ease;
-    display: flex;
+    border-bottom: 1px solid rgba(43,32,19,0.1);
     flex-direction: column;
-    height: 100%;
+    gap: 0;
+    padding: 8px 32px 18px;
   }
+  nav.nav-links.open { display: flex; }
+  nav.nav-links a { padding: 12px 0; border-bottom: 1px solid rgba(43,32,19,0.08); }
+  nav.nav-links a.active { border-bottom-color: rgba(43,32,19,0.08); }
+}
 
-  .card:hover {
-    border-color: var(--cane-600);
-    transform: translateY(-3px);
-  }
+/* ---------- BACK TO TOP ---------- */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--soil-900);
+  color: var(--cream-100);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  box-shadow: 0 10px 24px -8px rgba(43,32,19,0.5);
+  z-index: 60;
+}
+.back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background: var(--cane-600); }
 
-  .card-index {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--sun-500);
-    font-weight: 600;
-    margin-bottom: 18px;
-  }
-
-  .card h3 {
-    font-family: var(--display);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--soil-900);
-    margin-bottom: 10px;
-  }
-
-  .card p {
-    font-size: 0.92rem;
-    color: #6b5f4d;
-    flex-grow: 1;
-  }
-
-  .card-arrow {
-    margin-top: 20px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--cane-600);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  @media (max-width: 900px) {
-    .card-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ---------- PROCESS ---------- */
-  .flow {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(43,32,19,0.12);
-  }
-
-  .flow-row {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 24px;
-    padding: 28px 0;
-    border-bottom: 1px solid rgba(43,32,19,0.12);
-    align-items: baseline;
-  }
-
-  .flow-index {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--water-500);
-    font-weight: 600;
-  }
-
-  .flow-content h4 {
-    font-family: var(--body);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--soil-900);
-    margin-bottom: 6px;
-  }
-
-  .flow-content p {
-    font-size: 0.92rem;
-    color: #6b5f4d;
-    max-width: 60ch;
-  }
-
-  /* ---------- FOOTER ---------- */
-  footer {
-    background: var(--soil-900);
-    color: var(--cream-100);
-    padding: 56px 32px 32px;
-  }
-
-  .footer-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-  }
-
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-    padding-bottom: 36px;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
-  }
-
-  .footer-brand {
-    font-family: var(--display);
-    font-size: 1.3rem;
-    font-weight: 600;
-    max-width: 26ch;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-
-  .footer-col h5 {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #9B8D73;
-    margin-bottom: 14px;
-  }
-
-  .footer-col a, .footer-col span {
-    display: block;
-    font-size: 0.9rem;
-    color: #E8E0CE;
-    margin-bottom: 10px;
-    opacity: 0.85;
-  }
-
-  .footer-col a:hover { opacity: 1; }
-
-  .footer-bottom {
-    padding-top: 24px;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: #8A7C63;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+/* ---------- EXTRA RESPONSIVE POLISH ---------- */
+@media (max-width: 480px) {
+  .nav-inner { padding: 14px 20px; }
+  .hero { padding: 76px 20px 48px; }
+  section { padding: 64px 20px; }
+  .wrap { padding: 0 20px; }
+  .hero-meta { gap: 22px; }
+  .console-inner { padding: 22px 18px 16px; }
+  .console-grid { grid-template-columns: 1fr 1fr; }
+}
 </style>
 </head>
 <body>
-
 <header class="site-nav">
-  <div class="nav-inner">
-    <div class="nav-logo"><span class="dot"></span>KJS-AGR-01</div>
-    <nav class="nav-links">
-      <a href="index.html" class="active" title="Sugarcane Irrigation Advisory System - Home">Home</a>
-      <a href="problem.html" title="Why calendar-based irrigation fails sugarcane crops">The Problem</a>
-      <a href="technology.html" title="AI and sensor technology behind the advisory system">Technology</a>
-      <a href="dashboard.html" title="Live irrigation advisory dashboard preview">Advisory Dashboard</a>
-    </nav>
-  </div>
+<div class="nav-inner">
+<div class="nav-logo"><span class="dot"></span>KJS-AGR-01</div>
+<button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+<span></span><span></span><span></span>
+</button>
+<nav class="nav-links">
+<a href="index.html" class="active" title="Sugarcane Irrigation Advisory System - Home">Home</a>
+<a href="problem.html" title="Why calendar-based irrigation fails sugarcane crops">The Problem</a>
+<a href="technology.html" title="AI and sensor technology behind the advisory system">Technology</a>
+<a href="dashboard.html" title="Live irrigation advisory dashboard preview">Advisory Dashboard</a>
+</nav>
+</div>
 </header>
 
 <section class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">Field-tested advisory system</div>
-    <h1 class="hero-title">Water the cane by <em>what the soil says</em>, not by the calendar.</h1>
-    <p class="hero-sub">An AI and sensor-based irrigation advisory system that reads real-time soil, weather, and crop-stage data from sugarcane fields — and tells farmers exactly when and how much to irrigate.</p>
+<div class="hero-inner">
+<div class="eyebrow">Field-tested advisory system</div>
+<h1 class="hero-title">Water the cane by <em>what the soil says</em>, not by the calendar.</h1>
+<p class="hero-sub">An AI and sensor-based irrigation advisory system that reads real-time soil, weather, and crop-stage data from sugarcane fields — and tells farmers exactly when and how much to irrigate.</p>
+<div class="hero-meta">
+<div><strong>Project</strong>KJS-AGR-01</div>
+<div><strong>Crop focus</strong>Sugarcane (Saccharum officinarum)</div>
+<div><strong>Core stack</strong>IoT Sensors + AI Prediction Model</div>
+<div><strong>Season</strong>2026&ndash;27</div>
+</div>
 
-    <div class="hero-meta">
-      <div><strong>Project</strong>KJS-AGR-01</div>
-      <div><strong>Crop focus</strong>Sugarcane (Saccharum officinarum)</div>
-      <div><strong>Core stack</strong>IoT Sensors + AI Prediction Model</div>
-      <div><strong>Season</strong>2026&ndash;27</div>
-    </div>
+<div class="hero-actions">
+<a href="dashboard.html#calculator" class="btn-primary">Try the advisory calculator &rarr;</a>
+<a href="problem.html" class="btn-secondary">See the problem it solves</a>
+</div>
 
-    <!-- SIGNATURE ELEMENT: live field console -->
-    <div class="console">
-      <div class="console-inner">
-        <div class="console-topbar">
-          <div class="console-title">Field Console &mdash; Plot B4, Sector 2</div>
-          <div class="live-tag"><span class="live-dot"></span>Live reading</div>
-        </div>
-        <div class="console-grid">
-          <div class="console-cell">
-            <div class="console-label">Soil Moisture</div>
-            <div class="console-value warn">38<span class="unit">%</span></div>
-            <div class="console-bar-track"><div class="console-bar-fill" style="width:38%; background:#D98E2C;"></div></div>
-          </div>
-          <div class="console-cell">
-            <div class="console-label">Soil Temp</div>
-            <div class="console-value">29.4<span class="unit">&deg;C</span></div>
-            <div class="console-bar-track"><div class="console-bar-fill" style="width:64%;"></div></div>
-          </div>
-          <div class="console-cell">
-            <div class="console-label">Humidity</div>
-            <div class="console-value">54<span class="unit">%</span></div>
-            <div class="console-bar-track"><div class="console-bar-fill" style="width:54%;"></div></div>
-          </div>
-          <div class="console-cell">
-            <div class="console-label">Growth Stage</div>
-            <div class="console-value ok">Tillering</div>
-            <div class="console-bar-track"><div class="console-bar-fill" style="width:45%; background:#9BD4A8;"></div></div>
-          </div>
-        </div>
-        <div class="console-footer">
-          <div class="console-advice">AI Advisory &mdash; <strong>Irrigate within 6 hrs.</strong> Moisture below tillering-stage threshold (45%).</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+<!-- SIGNATURE ELEMENT: live field console -->
+<div class="console">
+<div class="console-inner">
+<div class="console-topbar">
+<div class="console-title">Field Console &mdash; Plot B4, Sector 2</div>
+<div class="live-tag"><span class="live-dot"></span>Live reading</div>
+</div>
+<div class="console-grid">
+<div class="console-cell">
+<div class="console-label">Soil Moisture</div>
+<div class="console-value warn">38<span class="unit">%</span></div>
+<div class="console-bar-track"><div class="console-bar-fill" style="width:38%; background:#D98E2C;"></div></div>
+</div>
+<div class="console-cell">
+<div class="console-label">Soil Temp</div>
+<div class="console-value">29.4<span class="unit">&deg;C</span></div>
+<div class="console-bar-track"><div class="console-bar-fill" style="width:64%;"></div></div>
+</div>
+<div class="console-cell">
+<div class="console-label">Humidity</div>
+<div class="console-value">54<span class="unit">%</span></div>
+<div class="console-bar-track"><div class="console-bar-fill" style="width:54%;"></div></div>
+</div>
+<div class="console-cell">
+<div class="console-label">Growth Stage</div>
+<div class="console-value ok">Tillering</div>
+<div class="console-bar-track"><div class="console-bar-fill" style="width:45%; background:#9BD4A8;"></div></div>
+</div>
+</div>
+<div class="console-footer">
+<div class="console-advice">AI Advisory &mdash; <strong>Irrigate within 6 hrs.</strong> Moisture below tillering-stage threshold (45%).</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section class="alt">
-  <div class="section-inner" style="padding:0;">
-    <div class="stat-row">
-      <div class="stat-cell">
-        <div class="stat-num">70%</div>
-        <div class="stat-label">of sugarcane's water demand is often mistimed under flat, calendar-based irrigation schedules.</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">18&ndash;24</div>
-        <div class="stat-label">months in the crop cycle across which water needs shift dramatically by growth stage.</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">1</div>
-        <div class="stat-label">advisory system combining live sensor data with an AI model to close that gap.</div>
-      </div>
-    </div>
-  </div>
+<div class="section-inner" style="padding:0;">
+<div class="stat-row">
+<div class="stat-cell">
+<div class="stat-num">70%</div>
+<div class="stat-label">of sugarcane's water demand is often mistimed under flat, calendar-based irrigation schedules.</div>
+</div>
+<div class="stat-cell">
+<div class="stat-num">18&ndash;24</div>
+<div class="stat-label">months in the crop cycle across which water needs shift dramatically by growth stage.</div>
+</div>
+<div class="stat-cell">
+<div class="stat-num">1</div>
+<div class="stat-label">advisory system combining live sensor data with an AI model to close that gap.</div>
+</div>
+</div>
+</div>
 </section>
 
 <section>
-  <div class="section-inner">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">System overview</div>
-        <h2 class="section-title">Three parts, one advisory loop.</h2>
-      </div>
-      <p class="section-note">Sensors sense, the model decides, the farmer acts — and the loop feeds back every irrigation cycle.</p>
-    </div>
-
-    <div class="flow">
-      <div class="flow-row">
-        <div class="flow-index">01</div>
-        <div class="flow-content">
-          <h4>Sense the field</h4>
-          <p>Soil moisture, soil temperature, and ambient humidity sensors placed across representative plots stream readings at fixed intervals throughout the day.</p>
-        </div>
-      </div>
-      <div class="flow-row">
-        <div class="flow-index">02</div>
-        <div class="flow-content">
-          <h4>Predict the need</h4>
-          <p>An AI model cross-references live readings with the crop's current growth stage and short-term weather forecasts to estimate actual irrigation demand.</p>
-        </div>
-      </div>
-      <div class="flow-row">
-        <div class="flow-index">03</div>
-        <div class="flow-content">
-          <h4>Advise the farmer</h4>
-          <p>A plain-language recommendation — irrigate now, hold, or reduce — is pushed to the dashboard, replacing guesswork with a field-specific answer.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="section-inner">
+<div class="section-head">
+<div>
+<div class="section-tag">System overview</div>
+<h2 class="section-title">Three parts, one advisory loop.</h2>
+</div>
+<p class="section-note">Sensors sense, the model decides, the farmer acts — and the loop feeds back every irrigation cycle.</p>
+</div>
+<div class="flow">
+<div class="flow-row">
+<div class="flow-index">01</div>
+<div class="flow-content">
+<h4>Sense the field</h4>
+<p>Soil moisture, soil temperature, and ambient humidity sensors placed across representative plots stream readings at fixed intervals throughout the day.</p>
+</div>
+</div>
+<div class="flow-row">
+<div class="flow-index">02</div>
+<div class="flow-content">
+<h4>Predict the need</h4>
+<p>An AI model cross-references live readings with the crop's current growth stage and short-term weather forecasts to estimate actual irrigation demand.</p>
+</div>
+</div>
+<div class="flow-row">
+<div class="flow-index">03</div>
+<div class="flow-content">
+<h4>Advise the farmer</h4>
+<p>A plain-language recommendation — irrigate now, hold, or reduce — is pushed to the dashboard, replacing guesswork with a field-specific answer.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section class="alt">
-  <div class="section-inner">
-    <div class="section-head">
-      <div>
-        <div class="section-tag">Explore the project</div>
-        <h2 class="section-title">Walk through how it's built.</h2>
-      </div>
-    </div>
-
-    <div class="card-grid">
-      <a href="problem.html" class="card">
-        <div class="card-index">Page 02</div>
-        <h3>The Problem</h3>
-        <p>Why fixed irrigation schedules waste water and stress the crop — and what sugarcane farmers actually need instead.</p>
-        <div class="card-arrow">Read more &rarr;</div>
-      </a>
-      <a href="technology.html" class="card">
-        <div class="card-index">Page 03</div>
-        <h3>AI &amp; Sensor Technology</h3>
-        <p>Inside the sensor network and the AI model that turns raw field data into an irrigation decision.</p>
-        <div class="card-arrow">Read more &rarr;</div>
-      </a>
-      <a href="dashboard.html" class="card">
-        <div class="card-index">Page 04</div>
-        <h3>Advisory Dashboard</h3>
-        <p>A working preview of the farmer-facing dashboard, showing live plot data and irrigation recommendations.</p>
-        <div class="card-arrow">Read more &rarr;</div>
-      </a>
-    </div>
-  </div>
+<div class="section-inner">
+<div class="section-head">
+<div>
+<div class="section-tag">Explore the project</div>
+<h2 class="section-title">Walk through how it's built.</h2>
+</div>
+</div>
+<div class="card-grid">
+<a href="problem.html" class="card">
+<div class="card-index">Page 02</div>
+<h3>The Problem</h3>
+<p>Why fixed irrigation schedules waste water and stress the crop — and what sugarcane farmers actually need instead.</p>
+<div class="card-arrow">Read more &rarr;</div>
+</a>
+<a href="technology.html" class="card">
+<div class="card-index">Page 03</div>
+<h3>AI &amp; Sensor Technology</h3>
+<p>Inside the sensor network and the AI model that turns raw field data into an irrigation decision.</p>
+<div class="card-arrow">Read more &rarr;</div>
+</a>
+<a href="dashboard.html" class="card">
+<div class="card-index">Page 04</div>
+<h3>Advisory Dashboard</h3>
+<p>A working preview of the farmer-facing dashboard, showing live plot data and irrigation recommendations.</p>
+<div class="card-arrow">Read more &rarr;</div>
+</a>
+</div>
+</div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">Irrigation Advisory System for Sugarcane Crop using AI and Sensor-based Technology</div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h5>Project</h5>
-          <span>KJS-AGR-01</span>
-          <span>Season 2026&ndash;27</span>
-        </div>
-        <div class="footer-col">
-          <h5>Pages</h5>
-          <a href="index.html">Home</a>
-          <a href="problem.html">The Problem</a>
-          <a href="technology.html">Technology</a>
-          <a href="dashboard.html">Dashboard</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>KJS-AGR-01 &mdash; Academic Project</span>
-      <span>Built for GitHub Pages</span>
-    </div>
-  </div>
+<div class="footer-inner">
+<div class="footer-top">
+<div class="footer-brand">Irrigation Advisory System for Sugarcane Crop using AI and Sensor-based Technology</div>
+<div class="footer-links">
+<div class="footer-col">
+<h5>Project</h5>
+<span>KJS-AGR-01</span>
+<span>Season 2026&ndash;27</span>
+</div>
+<div class="footer-col">
+<h5>Pages</h5>
+<a href="index.html">Home</a>
+<a href="problem.html">The Problem</a>
+<a href="technology.html">Technology</a>
+<a href="dashboard.html">Dashboard</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span>KJS-AGR-01 &mdash; Academic Project</span>
+<span>Built for GitHub Pages</span>
+</div>
+</div>
 </footer>
 
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">&uarr;</button>
+
+<script>
+(function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.querySelector('nav.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', function () {
+      var isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        links.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  var backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 480) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    }, { passive: true });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+</script>
 </body>
 </html>
