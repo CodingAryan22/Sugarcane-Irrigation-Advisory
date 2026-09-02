@@ -5,12 +5,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8TYPNM9JF"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-H8TYPNM9JF');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-H8TYPNM9JF');
 </script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live Advisory Dashboard | Sugarcane Irrigation System | KJS-AGR-01</title>
 <meta name="description" content="Preview the farmer-facing advisory dashboard showing live plot-wise soil sensor data, 7-day moisture trends and AI irrigation recommendations for sugarcane fields.">
@@ -24,551 +23,957 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --soil-900: #2B2013;
-    --soil-700: #3D2B1F;
-    --cane-600: #4A7C59;
-    --cane-400: #7BA582;
-    --cane-200: #C9DCC5;
-    --water-500: #3E7C8C;
-    --sun-500: #D98E2C;
-    --clay-600: #B5502F;
-    --cream-100: #F6F3EC;
-    --cream-50: #FBFAF6;
-    --ink: #201A12;
+:root {
+  --soil-900: #2B2013;
+  --soil-700: #3D2B1F;
+  --cane-600: #4A7C59;
+  --cane-400: #7BA582;
+  --cane-200: #C9DCC5;
+  --water-500: #3E7C8C;
+  --sun-500: #D98E2C;
+  --clay-600: #B5502F;
+  --cream-100: #F6F3EC;
+  --cream-50: #FBFAF6;
+  --ink: #201A12;
+  --display: 'Fraunces', serif;
+  --body: 'Public Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream-50);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+img, svg { max-width: 100%; display: block; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 
-    --display: 'Fraunces', serif;
-    --body: 'Public Sans', sans-serif;
-    --mono: 'IBM Plex Mono', monospace;
-  }
+/* ---------- NAV ---------- */
+header.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(251, 250, 246, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(43, 32, 19, 0.1);
+}
+.nav-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--soil-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cane-600);
+  box-shadow: 0 0 0 3px var(--cane-200);
+}
+nav.nav-links { display: flex; gap: 36px; font-size: 14px; font-weight: 600; }
+nav.nav-links a {
+  color: var(--soil-700);
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+nav.nav-links a:hover { opacity: 1; }
+nav.nav-links a.active { opacity: 1; border-bottom-color: var(--cane-600); }
+@media (max-width: 640px) { nav.nav-links { display: none; } }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
+/* ---------- PAGE HERO ---------- */
+.page-hero { padding: 88px 32px 48px; }
+.page-hero-inner { max-width: 1120px; margin: 0 auto; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sun-500);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sun-500); }
+h1.page-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--soil-900);
+  max-width: 20ch;
+}
+.page-sub { margin-top: 24px; font-size: 1.1rem; color: #4a4033; max-width: 58ch; }
+
+/* ---------- HERO CTA BUTTON ---------- */
+.hero-actions { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-primary, .btn-secondary {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  display: inline-block;
+}
+.btn-primary { background: var(--cane-600); color: var(--cream-50); }
+.btn-primary:hover { transform: translateY(-2px); background: var(--soil-900); }
+.btn-secondary { background: transparent; color: var(--soil-700); border: 1px solid rgba(43,32,19,0.25); }
+.btn-secondary:hover { transform: translateY(-2px); border-color: var(--soil-700); }
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { text-align: center; }
+}
+
+section { padding: 0 32px 80px; }
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--water-500);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+h2.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 600;
+  color: var(--soil-900);
+  margin-bottom: 32px;
+}
+
+/* ---------- DASHBOARD SHELL ---------- */
+.dash {
+  background: var(--soil-900);
+  border-radius: 16px;
+  padding: 4px;
+  box-shadow: 0 24px 60px -24px rgba(43,32,19,0.5);
+}
+.dash-inner { background: #241B10; border-radius: 13px; padding: 28px; }
+.dash-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.dash-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #C9BBA0; }
+.live-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: #9BD4A8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.08em;
+}
+.live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #9BD4A8;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(155,212,168,0.5); }
+  50% { opacity: 0.5; box-shadow: 0 0 0 5px rgba(155,212,168,0); }
+}
+
+/* plot selector tabs */
+.plot-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.plot-tab {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #A99A80;
+  background: #2B2013;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 9px 16px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+.plot-tab.active {
+  background: var(--cane-600);
+  color: #F6F3EC;
+  border-color: var(--cane-600);
+}
+.plot-tab:not(.active):hover { border-color: rgba(255,255,255,0.2); }
+
+/* advisory banner */
+.advisory-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(90deg, rgba(217,142,44,0.14), rgba(217,142,44,0.03));
+  border: 1px solid rgba(217,142,44,0.3);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.advisory-banner.ok {
+  background: linear-gradient(90deg, rgba(155,212,168,0.14), rgba(155,212,168,0.03));
+  border-color: rgba(155,212,168,0.3);
+}
+.advisory-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sun-500);
+  margin-bottom: 6px;
+}
+.advisory-banner.ok .advisory-label { color: #9BD4A8; }
+.advisory-text { font-family: var(--body); font-weight: 700; font-size: 1.1rem; color: var(--cream-100); }
+.advisory-confidence { font-family: var(--mono); font-size: 11px; color: #A99A80; text-align: right; }
+.advisory-confidence strong { display: block; color: var(--cream-100); font-size: 1rem; }
+
+/* metric grid */
+.console-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+.console-cell { background: #2B2013; padding: 18px 18px 16px; }
+.console-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8A7C63;
+  margin-bottom: 10px;
+}
+.console-value { font-family: var(--mono); font-size: 1.5rem; color: var(--cream-100); font-weight: 500; }
+.console-value span.unit { font-size: 0.82rem; color: #8A7C63; margin-left: 2px; }
+.console-value.warn { color: var(--sun-500); }
+.console-value.ok { color: #9BD4A8; }
+@media (max-width: 720px) { .console-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* trend chart */
+.trend-block {
+  background: #2B2013;
+  border-radius: 10px;
+  padding: 22px 22px 14px;
+}
+.trend-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.trend-title { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #C9BBA0; }
+.trend-legend { font-family: var(--mono); font-size: 10px; color: #8A7C63; display: flex; gap: 16px; }
+.trend-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* ---------- INTERACTIVE ADVISORY CALCULATOR ---------- */
+.calc-panel {
+  background: var(--soil-900);
+  border-radius: 16px;
+  padding: 4px;
+  box-shadow: 0 24px 60px -24px rgba(43,32,19,0.5);
+}
+.calc-panel-inner {
+  background: #241B10;
+  border-radius: 13px;
+  padding: 32px 28px 28px;
+  color: var(--cream-100);
+}
+.calc-panel-head { margin-bottom: 22px; }
+.calc-panel-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #C9BBA0; margin-bottom: 8px; }
+.calc-panel-note { font-family: var(--body); font-size: 0.88rem; color: #A99A80; max-width: 56ch; }
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.calc-field { display: flex; flex-direction: column; gap: 8px; }
+.calc-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #C9BBA0;
+}
+.calc-input {
+  font-family: var(--body);
+  font-size: 0.95rem;
+  color: var(--cream-100);
+  background: #2B2013;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 8px;
+  padding: 11px 12px;
+  width: 100%;
+}
+.calc-input:focus { outline: none; border-color: var(--cane-400); }
+select.calc-input { appearance: none; cursor: pointer; }
+.calc-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+.calc-btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 13px 26px;
+  border-radius: 8px;
+  border: none;
+  background: var(--cane-600);
+  color: var(--cream-50);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.calc-btn:hover { transform: translateY(-2px); background: #3f6b4c; }
+.calc-btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--cream-100);
+}
+.calc-btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.35); transform: translateY(-2px); }
+.calc-result {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.calc-result-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sun-500);
+  margin-bottom: 8px;
+}
+.calc-result.ok .calc-result-label { color: #9BD4A8; }
+.calc-result.bad .calc-result-label { color: var(--clay-600); }
+.calc-result-text {
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--cream-100);
+  margin-bottom: 8px;
+}
+.calc-result-meta {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #A99A80;
+}
+@media (max-width: 860px) { .calc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .calc-actions { flex-direction: column; }
+  .calc-btn { width: 100%; text-align: center; }
+}
+
+/* ---------- LOG LIST ---------- */
+.log-list { margin-top: 40px; border-top: 1px solid rgba(43,32,19,0.12); }
+.log-row {
+  display: grid;
+  grid-template-columns: 130px 90px 1fr;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(43,32,19,0.12);
+  align-items: baseline;
+  font-size: 0.9rem;
+}
+.log-time { font-family: var(--mono); font-size: 11.5px; color: #6b5f4d; }
+.log-status {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 9px;
+  border-radius: 5px;
+  width: fit-content;
+  text-transform: uppercase;
+}
+.log-status.irrigate { background: rgba(217,142,44,0.15); color: var(--sun-500); }
+.log-status.hold { background: rgba(74,124,89,0.15); color: var(--cane-600); }
+.log-status.reduce { background: rgba(62,124,140,0.15); color: var(--water-500); }
+.log-desc { color: #4a4033; }
+@media (max-width: 640px) {
+  .log-row { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* ---------- CLOSING ---------- */
+.closing {
+  background: var(--cream-100);
+  border-radius: 14px;
+  padding: 48px 40px;
+  text-align: center;
+}
+.closing h3 {
+  font-family: var(--display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--soil-900);
+  max-width: 36ch;
+  margin: 0 auto 16px;
+}
+.closing p { color: #6b5f4d; max-width: 48ch; margin: 0 auto 24px; font-size: 0.95rem; }
+.closing a.btn {
+  display: inline-block;
+  background: var(--soil-900);
+  color: var(--cream-50);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 8px;
+}
+
+/* ---------- FOOTER ---------- */
+footer { background: var(--soil-900); color: var(--cream-100); padding: 56px 32px 32px; }
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.footer-brand { font-family: var(--display); font-size: 1.3rem; font-weight: 600; max-width: 26ch; }
+.footer-links { display: flex; gap: 48px; flex-wrap: wrap; }
+.footer-col h5 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9B8D73;
+  margin-bottom: 14px;
+}
+.footer-col a, .footer-col span {
+  display: block;
+  font-size: 0.9rem;
+  color: #E8E0CE;
+  margin-bottom: 10px;
+  opacity: 0.85;
+}
+.footer-col a:hover { opacity: 1; }
+.footer-bottom {
+  padding-top: 24px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: #8A7C63;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------- MOBILE NAV TOGGLE ---------- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid rgba(43,32,19,0.18);
+  border-radius: 7px;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 18px;
+  margin: 0 auto;
+  background: var(--soil-700);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 640px) {
+  .nav-toggle { display: flex; }
+  nav.nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     background: var(--cream-50);
-    color: var(--ink);
-    font-family: var(--body);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    border-bottom: 1px solid rgba(43,32,19,0.1);
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 32px 18px;
   }
-  a { color: inherit; text-decoration: none; }
-  button { font: inherit; cursor: pointer; }
-  img, svg { max-width: 100%; display: block; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+  nav.nav-links.open { display: flex; }
+  nav.nav-links a { padding: 12px 0; border-bottom: 1px solid rgba(43,32,19,0.08); }
+  nav.nav-links a.active { border-bottom-color: rgba(43,32,19,0.08); }
+}
 
-  /* ---------- NAV ---------- */
-  header.site-nav {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(251, 250, 246, 0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(43, 32, 19, 0.1);
-  }
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    max-width: 1120px;
-    margin: 0 auto;
-  }
-  .nav-logo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--soil-700);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .nav-logo .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--cane-600);
-    box-shadow: 0 0 0 3px var(--cane-200);
-  }
-  nav.nav-links { display: flex; gap: 36px; font-size: 14px; font-weight: 600; }
-  nav.nav-links a {
-    color: var(--soil-700);
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-  }
-  nav.nav-links a:hover { opacity: 1; }
-  nav.nav-links a.active { opacity: 1; border-bottom-color: var(--cane-600); }
-  @media (max-width: 640px) { nav.nav-links { display: none; } }
+/* ---------- BACK TO TOP ---------- */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--soil-900);
+  color: var(--cream-100);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  box-shadow: 0 10px 24px -8px rgba(43,32,19,0.5);
+  z-index: 60;
+}
+.back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background: var(--cane-600); }
 
-  /* ---------- PAGE HERO ---------- */
-  .page-hero { padding: 88px 32px 48px; }
-  .page-hero-inner { max-width: 1120px; margin: 0 auto; }
-
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--sun-500);
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--sun-500); }
-
-  h1.page-title {
-    font-family: var(--display);
-    font-weight: 600;
-    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    color: var(--soil-900);
-    max-width: 20ch;
-  }
-
-  .page-sub { margin-top: 24px; font-size: 1.1rem; color: #4a4033; max-width: 58ch; }
-
-  section { padding: 0 32px 80px; }
-  .section-inner { max-width: 1120px; margin: 0 auto; }
-
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    color: var(--water-500);
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 14px;
-  }
-  h2.section-title {
-    font-family: var(--display);
-    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
-    font-weight: 600;
-    color: var(--soil-900);
-    margin-bottom: 32px;
-  }
-
-  /* ---------- DASHBOARD SHELL ---------- */
-  .dash {
-    background: var(--soil-900);
-    border-radius: 16px;
-    padding: 4px;
-    box-shadow: 0 24px 60px -24px rgba(43,32,19,0.5);
-  }
-  .dash-inner { background: #241B10; border-radius: 13px; padding: 28px; }
-
-  .dash-topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .dash-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #C9BBA0; }
-  .live-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: #9BD4A8;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    letter-spacing: 0.08em;
-  }
-  .live-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: #9BD4A8;
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(155,212,168,0.5); }
-    50% { opacity: 0.5; box-shadow: 0 0 0 5px rgba(155,212,168,0); }
-  }
-
-  /* plot selector tabs */
-  .plot-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 22px;
-    flex-wrap: wrap;
-  }
-  .plot-tab {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: #A99A80;
-    background: #2B2013;
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 9px 16px;
-    border-radius: 8px;
-    transition: all 0.15s ease;
-  }
-  .plot-tab.active {
-    background: var(--cane-600);
-    color: #F6F3EC;
-    border-color: var(--cane-600);
-  }
-  .plot-tab:not(.active):hover { border-color: rgba(255,255,255,0.2); }
-
-  /* advisory banner */
-  .advisory-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    background: linear-gradient(90deg, rgba(217,142,44,0.14), rgba(217,142,44,0.03));
-    border: 1px solid rgba(217,142,44,0.3);
-    border-radius: 10px;
-    padding: 20px 22px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-  .advisory-banner.ok {
-    background: linear-gradient(90deg, rgba(155,212,168,0.14), rgba(155,212,168,0.03));
-    border-color: rgba(155,212,168,0.3);
-  }
-  .advisory-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--sun-500);
-    margin-bottom: 6px;
-  }
-  .advisory-banner.ok .advisory-label { color: #9BD4A8; }
-  .advisory-text { font-family: var(--body); font-weight: 700; font-size: 1.1rem; color: var(--cream-100); }
-  .advisory-confidence { font-family: var(--mono); font-size: 11px; color: #A99A80; text-align: right; }
-  .advisory-confidence strong { display: block; color: var(--cream-100); font-size: 1rem; }
-
-  /* metric grid */
-  .console-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: rgba(255,255,255,0.07);
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 28px;
-  }
-  .console-cell { background: #2B2013; padding: 18px 18px 16px; }
-  .console-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #8A7C63;
-    margin-bottom: 10px;
-  }
-  .console-value { font-family: var(--mono); font-size: 1.5rem; color: var(--cream-100); font-weight: 500; }
-  .console-value span.unit { font-size: 0.82rem; color: #8A7C63; margin-left: 2px; }
-  .console-value.warn { color: var(--sun-500); }
-  .console-value.ok { color: #9BD4A8; }
-  @media (max-width: 720px) { .console-grid { grid-template-columns: repeat(2, 1fr); } }
-
-  /* trend chart */
-  .trend-block {
-    background: #2B2013;
-    border-radius: 10px;
-    padding: 22px 22px 14px;
-  }
-  .trend-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .trend-title { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #C9BBA0; }
-  .trend-legend { font-family: var(--mono); font-size: 10px; color: #8A7C63; display: flex; gap: 16px; }
-  .trend-legend span { display: inline-flex; align-items: center; gap: 5px; }
-  .legend-dot { width: 8px; height: 8px; border-radius: 2px; }
-
-  /* ---------- LOG LIST ---------- */
-  .log-list { margin-top: 40px; border-top: 1px solid rgba(43,32,19,0.12); }
-  .log-row {
-    display: grid;
-    grid-template-columns: 130px 90px 1fr;
-    gap: 20px;
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(43,32,19,0.12);
-    align-items: baseline;
-    font-size: 0.9rem;
-  }
-  .log-time { font-family: var(--mono); font-size: 11.5px; color: #6b5f4d; }
-  .log-status {
-    font-family: var(--mono);
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    padding: 4px 9px;
-    border-radius: 5px;
-    width: fit-content;
-    text-transform: uppercase;
-  }
-  .log-status.irrigate { background: rgba(217,142,44,0.15); color: var(--sun-500); }
-  .log-status.hold { background: rgba(74,124,89,0.15); color: var(--cane-600); }
-  .log-status.reduce { background: rgba(62,124,140,0.15); color: var(--water-500); }
-  .log-desc { color: #4a4033; }
-
-  @media (max-width: 640px) {
-    .log-row { grid-template-columns: 1fr; gap: 6px; }
-  }
-
-  /* ---------- CLOSING ---------- */
-  .closing {
-    background: var(--cream-100);
-    border-radius: 14px;
-    padding: 48px 40px;
-    text-align: center;
-  }
-  .closing h3 {
-    font-family: var(--display);
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--soil-900);
-    max-width: 36ch;
-    margin: 0 auto 16px;
-  }
-  .closing p { color: #6b5f4d; max-width: 48ch; margin: 0 auto 24px; font-size: 0.95rem; }
-  .closing a.btn {
-    display: inline-block;
-    background: var(--soil-900);
-    color: var(--cream-50);
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 14px 28px;
-    border-radius: 8px;
-  }
-
-  /* ---------- FOOTER ---------- */
-  footer { background: var(--soil-900); color: var(--cream-100); padding: 56px 32px 32px; }
-  .footer-inner { max-width: 1120px; margin: 0 auto; }
-  .footer-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 32px;
-    flex-wrap: wrap;
-    padding-bottom: 36px;
-    border-bottom: 1px solid rgba(255,255,255,0.12);
-  }
-  .footer-brand { font-family: var(--display); font-size: 1.3rem; font-weight: 600; max-width: 26ch; }
-  .footer-links { display: flex; gap: 48px; flex-wrap: wrap; }
-  .footer-col h5 {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #9B8D73;
-    margin-bottom: 14px;
-  }
-  .footer-col a, .footer-col span {
-    display: block;
-    font-size: 0.9rem;
-    color: #E8E0CE;
-    margin-bottom: 10px;
-    opacity: 0.85;
-  }
-  .footer-col a:hover { opacity: 1; }
-  .footer-bottom {
-    padding-top: 24px;
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: #8A7C63;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+/* ---------- EXTRA RESPONSIVE POLISH ---------- */
+@media (max-width: 480px) {
+  .nav-inner { padding: 14px 20px; }
+  .page-hero { padding: 68px 20px 36px; }
+  section { padding: 0 20px 56px; }
+  .wrap { padding: 0 20px; }
+  .dash-inner { padding: 20px; }
+  .calc-panel-inner { padding: 22px 18px 20px; }
+  .advisory-banner { padding: 16px 16px; }
+  .closing { padding: 36px 22px; }
+}
 </style>
 </head>
 <body>
-
 <header class="site-nav">
-  <div class="nav-inner">
-    <div class="nav-logo"><span class="dot"></span>KJS-AGR-01</div>
-    <nav class="nav-links">
-      <a href="index.html" title="Sugarcane Irrigation Advisory System - Home">Home</a>
-      <a href="problem.html" title="Why calendar-based irrigation fails sugarcane crops">The Problem</a>
-      <a href="technology.html" title="AI and sensor technology behind the advisory system">Technology</a>
-      <a href="dashboard.html" class="active" title="Live irrigation advisory dashboard preview">Advisory Dashboard</a>
-    </nav>
-  </div>
+<div class="nav-inner">
+<div class="nav-logo"><span class="dot"></span>KJS-AGR-01</div>
+<button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+<span></span><span></span><span></span>
+</button>
+<nav class="nav-links">
+<a href="index.html" title="Sugarcane Irrigation Advisory System - Home">Home</a>
+<a href="problem.html" title="Why calendar-based irrigation fails sugarcane crops">The Problem</a>
+<a href="technology.html" title="AI and sensor technology behind the advisory system">Technology</a>
+<a href="dashboard.html" class="active" title="Live irrigation advisory dashboard preview">Advisory Dashboard</a>
+</nav>
+</div>
 </header>
 
 <section class="page-hero">
-  <div class="page-hero-inner">
-    <div class="eyebrow">Page 04 &mdash; The interface</div>
-    <h1 class="page-title">What the farmer actually sees each morning.</h1>
-    <p class="page-sub">A live preview of the advisory dashboard — plot-by-plot readings, a clear irrigation recommendation, and a 7-day trend so the decision is never a guess.</p>
-  </div>
+<div class="page-hero-inner">
+<div class="eyebrow">Page 04 &mdash; The interface</div>
+<h1 class="page-title">What the farmer actually sees each morning.</h1>
+<p class="page-sub">A live preview of the advisory dashboard — plot-by-plot readings, a clear irrigation recommendation, and a 7-day trend so the decision is never a guess.</p>
+<div class="hero-actions">
+<a href="#calculator" class="btn-primary">Jump to the calculator &darr;</a>
+<a href="technology.html" class="btn-secondary">How the model works</a>
+</div>
+</div>
 </section>
 
 <section>
-  <div class="section-inner">
-    <div class="dash">
-      <div class="dash-inner">
-        <div class="dash-topbar">
-          <div class="dash-title">Advisory Dashboard &mdash; Sugarcane Block 4</div>
-          <div class="live-tag"><span class="live-dot"></span>Synced 3 min ago</div>
-        </div>
+<div class="section-inner">
+<div class="dash">
+<div class="dash-inner">
+<div class="dash-topbar">
+<div class="dash-title">Advisory Dashboard &mdash; Sugarcane Block 4</div>
+<div class="live-tag"><span class="live-dot"></span>Synced 3 min ago</div>
+</div>
 
-        <div class="plot-tabs" role="tablist" aria-label="Select field plot">
-          <button class="plot-tab active" type="button">Plot A1</button>
-          <button class="plot-tab" type="button">Plot B4</button>
-          <button class="plot-tab" type="button">Plot C2</button>
-          <button class="plot-tab" type="button">Plot D3</button>
-        </div>
+<div class="plot-tabs" role="tablist" aria-label="Select field plot">
+<button class="plot-tab active" type="button">Plot A1</button>
+<button class="plot-tab" type="button">Plot B4</button>
+<button class="plot-tab" type="button">Plot C2</button>
+<button class="plot-tab" type="button">Plot D3</button>
+</div>
 
-        <div class="advisory-banner">
-          <div>
-            <div class="advisory-label">Recommendation &mdash; Plot A1</div>
-            <div class="advisory-text">Irrigate within 6 hours. Moisture is below the tillering-stage threshold.</div>
-          </div>
-          <div class="advisory-confidence">Confidence<strong>91%</strong></div>
-        </div>
+<div class="advisory-banner">
+<div>
+<div class="advisory-label">Recommendation &mdash; Plot A1</div>
+<div class="advisory-text">Irrigate within 6 hours. Moisture is below the tillering-stage threshold.</div>
+</div>
+<div class="advisory-confidence">Confidence<strong>91%</strong></div>
+</div>
 
-        <div class="console-grid">
-          <div class="console-cell">
-            <div class="console-label">Soil Moisture</div>
-            <div class="console-value warn">38<span class="unit">%</span></div>
-          </div>
-          <div class="console-cell">
-            <div class="console-label">Soil Temp</div>
-            <div class="console-value">29.4<span class="unit">&deg;C</span></div>
-          </div>
-          <div class="console-cell">
-            <div class="console-label">Humidity</div>
-            <div class="console-value">54<span class="unit">%</span></div>
-          </div>
-          <div class="console-cell">
-            <div class="console-label">Growth Stage</div>
-            <div class="console-value ok">Tillering</div>
-          </div>
-        </div>
+<div class="console-grid">
+<div class="console-cell">
+<div class="console-label">Soil Moisture</div>
+<div class="console-value warn">38<span class="unit">%</span></div>
+</div>
+<div class="console-cell">
+<div class="console-label">Soil Temp</div>
+<div class="console-value">29.4<span class="unit">&deg;C</span></div>
+</div>
+<div class="console-cell">
+<div class="console-label">Humidity</div>
+<div class="console-value">54<span class="unit">%</span></div>
+</div>
+<div class="console-cell">
+<div class="console-label">Growth Stage</div>
+<div class="console-value ok">Tillering</div>
+</div>
+</div>
 
-        <div class="trend-block">
-          <div class="trend-head">
-            <div class="trend-title">Soil moisture &mdash; last 7 days</div>
-            <div class="trend-legend">
-              <span><span class="legend-dot" style="background:#3E7C8C;"></span>Moisture %</span>
-              <span><span class="legend-dot" style="background:#D98E2C;"></span>Threshold (45%)</span>
-            </div>
-          </div>
-          <svg viewBox="0 0 620 160" width="100%" height="160" preserveAspectRatio="none">
-            <line x1="0" y1="76" x2="620" y2="76" stroke="#D98E2C" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
-            <polyline points="10,40 100,55 190,70 280,95 370,110 460,120 550,100 610,90"
-              fill="none" stroke="#3E7C8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <g fill="#3E7C8C">
-              <circle cx="10" cy="40" r="3.5"/>
-              <circle cx="100" cy="55" r="3.5"/>
-              <circle cx="190" cy="70" r="3.5"/>
-              <circle cx="280" cy="95" r="3.5"/>
-              <circle cx="370" cy="110" r="3.5"/>
-              <circle cx="460" cy="120" r="3.5"/>
-              <circle cx="550" cy="100" r="3.5"/>
-              <circle cx="610" cy="90" r="3.5"/>
-            </g>
-            <g font-family="IBM Plex Mono, monospace" font-size="9" fill="#8A7C63">
-              <text x="10" y="150">Mon</text>
-              <text x="95" y="150">Tue</text>
-              <text x="185" y="150">Wed</text>
-              <text x="275" y="150">Thu</text>
-              <text x="365" y="150">Fri</text>
-              <text x="455" y="150">Sat</text>
-              <text x="545" y="150">Sun</text>
-              <text x="595" y="150">Today</text>
-            </g>
-          </svg>
-        </div>
+<div class="trend-block">
+<div class="trend-head">
+<div class="trend-title">Soil moisture &mdash; last 7 days</div>
+<div class="trend-legend">
+<span><span class="legend-dot" style="background:#3E7C8C;"></span>Moisture %</span>
+<span><span class="legend-dot" style="background:#D98E2C;"></span>Threshold (45%)</span>
+</div>
+</div>
+<svg viewBox="0 0 620 160" width="100%" height="160" preserveAspectRatio="none">
+<line x1="0" y1="76" x2="620" y2="76" stroke="#D98E2C" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+<polyline points="10,40 100,55 190,70 280,95 370,110 460,120 550,100 610,90"
+fill="none" stroke="#3E7C8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<g fill="#3E7C8C">
+<circle cx="10" cy="40" r="3.5"/>
+<circle cx="100" cy="55" r="3.5"/>
+<circle cx="190" cy="70" r="3.5"/>
+<circle cx="280" cy="95" r="3.5"/>
+<circle cx="370" cy="110" r="3.5"/>
+<circle cx="460" cy="120" r="3.5"/>
+<circle cx="550" cy="100" r="3.5"/>
+<circle cx="610" cy="90" r="3.5"/>
+</g>
+<g font-family="IBM Plex Mono, monospace" font-size="9" fill="#8A7C63">
+<text x="10" y="150">Mon</text>
+<text x="95" y="150">Tue</text>
+<text x="185" y="150">Wed</text>
+<text x="275" y="150">Thu</text>
+<text x="365" y="150">Fri</text>
+<text x="455" y="150">Sat</text>
+<text x="545" y="150">Sun</text>
+<text x="595" y="150">Today</text>
+</g>
+</svg>
+</div>
 
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="calculator">
+<div class="section-inner">
+<div class="section-tag">Interactive tool</div>
+<h2 class="section-title">Calculate your own irrigation advisory.</h2>
+<div class="calc-panel">
+<div class="calc-panel-inner">
+<div class="calc-panel-head">
+<div class="calc-panel-title">Advisory Calculator</div>
+<p class="calc-panel-note">Enter a plot's current sensor readings and growth stage to get an instant, rule-based recommendation — the same logic the AI model applies in the field.</p>
+</div>
+
+<div class="calc-grid">
+<div class="calc-field">
+<label class="calc-label" for="calcMoisture">Soil Moisture (%)</label>
+<input class="calc-input" type="number" id="calcMoisture" min="0" max="100" step="1" value="38" inputmode="numeric">
+</div>
+<div class="calc-field">
+<label class="calc-label" for="calcTemp">Soil Temperature (&deg;C)</label>
+<input class="calc-input" type="number" id="calcTemp" min="0" max="55" step="0.1" value="29.4" inputmode="decimal">
+</div>
+<div class="calc-field">
+<label class="calc-label" for="calcHumidity">Humidity (%)</label>
+<input class="calc-input" type="number" id="calcHumidity" min="0" max="100" step="1" value="54" inputmode="numeric">
+</div>
+<div class="calc-field">
+<label class="calc-label" for="calcRain">Rainfall, last 24h (mm)</label>
+<input class="calc-input" type="number" id="calcRain" min="0" max="300" step="1" value="0" inputmode="numeric">
+</div>
+<div class="calc-field">
+<label class="calc-label" for="calcStage">Growth Stage</label>
+<select class="calc-input" id="calcStage">
+<option value="germination">Germination (0&ndash;35 days)</option>
+<option value="tillering" selected>Tillering (35&ndash;120 days)</option>
+<option value="grand">Grand Growth (120&ndash;270 days)</option>
+<option value="maturation">Maturation (270&ndash;365 days)</option>
+</select>
+</div>
+<div class="calc-field">
+<label class="calc-label" for="calcPlot">Plot Label (optional)</label>
+<input class="calc-input" type="text" id="calcPlot" placeholder="e.g. Plot A1" maxlength="24">
+</div>
+</div>
+
+<div class="calc-actions">
+<button class="calc-btn" type="button" id="calcSubmit">Get Advisory</button>
+<button class="calc-btn calc-btn-ghost" type="button" id="calcReset">Reset</button>
+</div>
+
+<div class="calc-result" id="calcResult" hidden>
+<div class="calc-result-label" id="calcResultLabel">Recommendation</div>
+<div class="calc-result-text" id="calcResultText"></div>
+<div class="calc-result-meta" id="calcResultMeta"></div>
+</div>
+
+</div>
+</div>
+</div>
 </section>
 
 <section>
-  <div class="section-inner">
-    <div class="section-tag">Advisory history</div>
-    <h2 class="section-title">Every recommendation, logged.</h2>
-
-    <div class="log-list">
-      <div class="log-row">
-        <div class="log-time">Today, 06:12</div>
-        <div class="log-status irrigate">Irrigate</div>
-        <div class="log-desc">Plot A1 &mdash; moisture at 38%, below the 45% tillering-stage threshold.</div>
-      </div>
-      <div class="log-row">
-        <div class="log-time">Yesterday, 06:05</div>
-        <div class="log-status hold">Hold</div>
-        <div class="log-desc">Plot A1 &mdash; moisture at 52%, sufficient after previous day's irrigation.</div>
-      </div>
-      <div class="log-row">
-        <div class="log-time">2 days ago, 18:40</div>
-        <div class="log-status reduce">Reduce</div>
-        <div class="log-desc">Plot B4 &mdash; unseasonal rainfall recorded; next scheduled irrigation trimmed by 30%.</div>
-      </div>
-      <div class="log-row">
-        <div class="log-time">3 days ago, 06:15</div>
-        <div class="log-status irrigate">Irrigate</div>
-        <div class="log-desc">Plot C2 &mdash; moisture at 41%, forecast shows no rain in next 48 hours.</div>
-      </div>
-      <div class="log-row">
-        <div class="log-time">4 days ago, 06:10</div>
-        <div class="log-status hold">Hold</div>
-        <div class="log-desc">Plot D3 &mdash; maturation stage, moisture within target range.</div>
-      </div>
-    </div>
-  </div>
+<div class="section-inner">
+<div class="section-tag">Advisory history</div>
+<h2 class="section-title">Every recommendation, logged.</h2>
+<div class="log-list">
+<div class="log-row">
+<div class="log-time">Today, 06:12</div>
+<div class="log-status irrigate">Irrigate</div>
+<div class="log-desc">Plot A1 &mdash; moisture at 38%, below the 45% tillering-stage threshold.</div>
+</div>
+<div class="log-row">
+<div class="log-time">Yesterday, 06:05</div>
+<div class="log-status hold">Hold</div>
+<div class="log-desc">Plot A1 &mdash; moisture at 52%, sufficient after previous day's irrigation.</div>
+</div>
+<div class="log-row">
+<div class="log-time">2 days ago, 18:40</div>
+<div class="log-status reduce">Reduce</div>
+<div class="log-desc">Plot B4 &mdash; unseasonal rainfall recorded; next scheduled irrigation trimmed by 30%.</div>
+</div>
+<div class="log-row">
+<div class="log-time">3 days ago, 06:15</div>
+<div class="log-status irrigate">Irrigate</div>
+<div class="log-desc">Plot C2 &mdash; moisture at 41%, forecast shows no rain in next 48 hours.</div>
+</div>
+<div class="log-row">
+<div class="log-time">4 days ago, 06:10</div>
+<div class="log-status hold">Hold</div>
+<div class="log-desc">Plot D3 &mdash; maturation stage, moisture within target range.</div>
+</div>
+</div>
+</div>
 </section>
 
 <section>
-  <div class="section-inner">
-    <div class="closing">
-      <h3>That's the full loop &mdash; sensed, predicted, and advised.</h3>
-      <p>From a soil probe in a sugarcane field to a clear recommendation on screen, KJS-AGR-01 closes the gap that calendar-based irrigation leaves open.</p>
-      <a href="index.html" class="btn">Back to overview &rarr;</a>
-    </div>
-  </div>
+<div class="section-inner">
+<div class="closing">
+<h3>That's the full loop &mdash; sensed, predicted, and advised.</h3>
+<p>From a soil probe in a sugarcane field to a clear recommendation on screen, KJS-AGR-01 closes the gap that calendar-based irrigation leaves open.</p>
+<a href="index.html" class="btn">Back to overview &rarr;</a>
+</div>
+</div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">Irrigation Advisory System for Sugarcane Crop using AI and Sensor-based Technology</div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h5>Project</h5>
-          <span>KJS-AGR-01</span>
-          <span>Season 2026&ndash;27</span>
-        </div>
-        <div class="footer-col">
-          <h5>Pages</h5>
-          <a href="index.html">Home</a>
-          <a href="problem.html">The Problem</a>
-          <a href="technology.html">Technology</a>
-          <a href="dashboard.html">Dashboard</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>KJS-AGR-01 &mdash; Academic Project</span>
-      <span>Built for GitHub Pages</span>
-    </div>
-  </div>
+<div class="footer-inner">
+<div class="footer-top">
+<div class="footer-brand">Irrigation Advisory System for Sugarcane Crop using AI and Sensor-based Technology</div>
+<div class="footer-links">
+<div class="footer-col">
+<h5>Project</h5>
+<span>KJS-AGR-01</span>
+<span>Season 2026&ndash;27</span>
+</div>
+<div class="footer-col">
+<h5>Pages</h5>
+<a href="index.html">Home</a>
+<a href="problem.html">The Problem</a>
+<a href="technology.html">Technology</a>
+<a href="dashboard.html">Dashboard</a>
+</div>
+</div>
+</div>
+<div class="footer-bottom">
+<span>KJS-AGR-01 &mdash; Academic Project</span>
+<span>Built for GitHub Pages</span>
+</div>
+</div>
 </footer>
 
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top">&uarr;</button>
+
 <script>
-  document.querySelectorAll('.plot-tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.plot-tab').forEach(function (t) { t.classList.remove('active'); });
-      tab.classList.add('active');
-    });
-  });
+document.querySelectorAll('.plot-tab').forEach(function (tab) {
+tab.addEventListener('click', function () {
+document.querySelectorAll('.plot-tab').forEach(function (t) { t.classList.remove('active'); });
+tab.classList.add('active');
+});
+});
 </script>
 
+<script>
+(function () {
+  /* ---------- Mobile nav toggle ---------- */
+  var toggle = document.querySelector('.nav-toggle');
+  var links = document.querySelector('nav.nav-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', function () {
+      var isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        links.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  /* ---------- Back to top ---------- */
+  var backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 480) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    }, { passive: true });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* ---------- Advisory calculator ---------- */
+  var thresholds = {
+    germination: 50,
+    tillering: 45,
+    grand: 60,
+    maturation: 35
+  };
+  var stageLabels = {
+    germination: 'Germination',
+    tillering: 'Tillering',
+    grand: 'Grand Growth',
+    maturation: 'Maturation'
+  };
+
+  var submitBtn = document.getElementById('calcSubmit');
+  var resetBtn = document.getElementById('calcReset');
+  var resultBox = document.getElementById('calcResult');
+  var resultLabel = document.getElementById('calcResultLabel');
+  var resultText = document.getElementById('calcResultText');
+  var resultMeta = document.getElementById('calcResultMeta');
+
+  function computeAdvisory() {
+    var moistureEl = document.getElementById('calcMoisture');
+    var tempEl = document.getElementById('calcTemp');
+    var humidityEl = document.getElementById('calcHumidity');
+    var rainEl = document.getElementById('calcRain');
+    var stageEl = document.getElementById('calcStage');
+    var plotEl = document.getElementById('calcPlot');
+
+    var moisture = parseFloat(moistureEl.value);
+    var temp = parseFloat(tempEl.value);
+    var humidity = parseFloat(humidityEl.value);
+    var rain = parseFloat(rainEl.value);
+    var stage = stageEl.value;
+    var plotLabel = (plotEl.value || '').trim();
+
+    if (isNaN(moisture) || isNaN(temp) || isNaN(humidity) || isNaN(rain)) {
+      resultBox.hidden = false;
+      resultBox.className = 'calc-result bad';
+      resultLabel.textContent = 'Input needed';
+      resultText.textContent = 'Please fill in soil moisture, temperature, humidity and rainfall with valid numbers.';
+      resultMeta.textContent = '';
+      return;
+    }
+
+    moisture = Math.min(Math.max(moisture, 0), 100);
+    humidity = Math.min(Math.max(humidity, 0), 100);
+    rain = Math.max(rain, 0);
+
+    var threshold = thresholds[stage] || 45;
+
+    /* recent rainfall lowers the effective threshold (less irrigation needed) */
+    var adjustedThreshold = threshold - Math.min(rain * 0.3, 15);
+
+    /* heat and low humidity raise urgency slightly (higher evapotranspiration) */
+    var stressAdjust = 0;
+    if (temp > 32) stressAdjust += 3;
+    if (temp > 38) stressAdjust += 3;
+    if (humidity < 40) stressAdjust += 3;
+
+    var effectiveGap = (adjustedThreshold + stressAdjust) - moisture;
+
+    var status, label, cls, confidence;
+
+    if (effectiveGap >= 12) {
+      status = 'Irrigate now. Moisture is well below the safe range for this stage.';
+      label = 'Irrigate';
+      cls = 'warn';
+      confidence = 90;
+    } else if (effectiveGap >= 2) {
+      status = 'Irrigate within 6\u201312 hours. Moisture is approaching the stage threshold.';
+      label = 'Irrigate soon';
+      cls = 'warn';
+      confidence = 82;
+    } else if (effectiveGap >= -8) {
+      status = 'Hold. Moisture is close to the safe range \u2014 recheck in the next reading cycle.';
+      label = 'Hold';
+      cls = 'ok';
+      confidence = 78;
+    } else {
+      status = 'Reduce or skip irrigation. Moisture is comfortably above what this stage needs.';
+      label = 'Reduce';
+      cls = 'ok';
+      confidence = 85;
+    }
+
+    resultBox.hidden = false;
+    resultBox.className = 'calc-result ' + cls;
+    resultLabel.textContent = 'Recommendation' + (plotLabel ? ' \u2014 ' + plotLabel : '') + ' \u2014 ' + stageLabels[stage];
+    resultText.textContent = status;
+    resultMeta.textContent = 'Confidence ~' + confidence + '% \u00b7 Stage threshold ' + threshold + '% \u00b7 Adjusted for rainfall & heat/humidity stress';
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', computeAdvisory);
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      document.getElementById('calcMoisture').value = 38;
+      document.getElementById('calcTemp').value = 29.4;
+      document.getElementById('calcHumidity').value = 54;
+      document.getElementById('calcRain').value = 0;
+      document.getElementById('calcStage').value = 'tillering';
+      document.getElementById('calcPlot').value = '';
+      resultBox.hidden = true;
+      resultBox.className = 'calc-result';
+    });
+  }
+})();
+</script>
 </body>
 </html>
